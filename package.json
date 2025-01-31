@@ -1,0 +1,11 @@
+{
+  "name": "s_85_wanderwise",
+  "version": "1.0.0",
+  "description": "Project Title: WanderWise – Your Ultimate Travel Guide",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tanmay",
+  "license": "ISC"
+}

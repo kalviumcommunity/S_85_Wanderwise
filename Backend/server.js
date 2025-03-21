@@ -1,28 +1,28 @@
-require('dotenv').config(); // Load environment variables
-const express = require('express');
-const cors = require('cors'); 
-const connectDB = require('./db'); // Import DB connection
+const express = require("express");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const connectDatabase = require("./config/db");
+const wanderwiseRoutes = require("./routes/routes");
 
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.json()); // Parse JSON requests
-app.use(cors()); // Enable CORS
+app.use(express.json());
+connectDatabase();
 
-// Connect to MongoDB
-connectDB();
-
-// Routes
-app.get('/', (req, res) => {
-    const dbStatus = require('mongoose').connection.readyState === 1 
-        ? "MongoDB Connected" 
-        : "MongoDB Not Connected";
+// Home Route - Show MongoDB Connection Status
+app.get("/", (req, res) => {
+    const dbStatus = mongoose.connection.readyState === 1 
+        ? "MongoDB Connected☑" 
+        : "MongoDB Not Connected✖";
     
-    res.send(`<h2>Hello, I am Tanmay. This is my Wanderwise Project!</h2><p>${dbStatus} ✔</p>`);
+    res.send(`<h2>Welcome to WanderWise - Your Ultimate Travel Companion!</h2>${dbStatus}`);
 });
 
-// Start Server
+// Use Routes
+app.use("/api", wanderwiseRoutes);
+
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`🚀 WanderWise Server is running on http://localhost:${PORT}`);
 });
